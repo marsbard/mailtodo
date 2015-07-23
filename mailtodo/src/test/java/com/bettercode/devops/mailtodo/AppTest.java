@@ -1,4 +1,4 @@
-package es.riplife.devops.mailtodo;
+package com.bettercode.devops.mailtodo;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
