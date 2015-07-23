@@ -1,4 +1,4 @@
-package es.riplife.devops.mailtodo;
+package com.bettercode.devops.mailtodo;
 
 import static org.apache.activemq.camel.component.ActiveMQComponent.activeMQComponent;
 
