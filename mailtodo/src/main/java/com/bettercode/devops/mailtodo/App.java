@@ -48,7 +48,9 @@ public class App
 					from(SMTP_ENDPOINT)
 						.to(AMQ_ENDPOINT);
 					
-					from(WEB_ENDPOINT).process(new TodoQueueService());
+//					from(WEB_ENDPOINT).process(new TodoQueueService());
+					
+					from(AMQ_ENDPOINT).process(new TodoQueueService());
 				}
 			});
 		} catch (Exception e) {

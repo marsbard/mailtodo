@@ -61,8 +61,9 @@ public class TodoQueueService implements Processor {
 		
 		List<Message> msgs = new ArrayList<Message>();
 		
+		int timeout = 50;
 		for (int i=0; i< 10; i++){
-			Message msg = (Message) consumer.receive(50);
+			Message msg = (Message) consumer.receive(timeout);
 			if(msg==null) break;
 			msgs.add(msg);
 		}
