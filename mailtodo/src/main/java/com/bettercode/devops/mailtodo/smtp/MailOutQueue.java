@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class MailOutQueue {
 
-	private boolean running;
+	private boolean running=true;
 
 	private SynchronousQueue<MySmtpMessage>  buffer;
 	

@@ -39,19 +39,7 @@ public class DatedMailProcessorService implements Processor {
 			System.out.println("Found match for: \"^[0-9]{8}@.*$\"");
 			System.out.println(in.getBody());			
 			System.out.println("timestamp was " + in.getHeader("timestamp"));
-			
-			Map<String, Object> attrs = new HashMap<String, Object>();
-			attrs.put("from", in.getHeader("from"));
-			attrs.put("to", to);
-			attrs.put("timestamp", in.getHeader("timestamp"));
-			attrs.put("body", in.getBody());
-			Document doc = mongo.createDoc(attrs);
-			mongo.store("messages", doc);
-			
-			
-//			Pattern p = Pattern.compile("^(\\d{8})@.*$");
-//			Matcher m = p.matcher(to);
-//			String revDate = m.group(1);
+		
 			
 			String numDate = to.split("@")[0];
 			
@@ -70,25 +58,34 @@ public class DatedMailProcessorService implements Processor {
 			} catch (Exception e) {
 				outMail.enqueueErrorMail(i18n.ERR_BAD_DATETIME + ": " + e.getLocalizedMessage(),(String) in.getHeader("from"));
 				return;
-			}
+			}	
+			
+
+			
+
+	
 
 			String msg = validDate(dt);
 			if(msg != ""){
 				outMail.enqueueErrorMail(msg,(String) in.getHeader("from"));
 			} else {
-
+				
+				Map<String, Object> attrs = new HashMap<String, Object>();
+				attrs.put("from", in.getHeader("from"));
+				attrs.put("to", to);
+				attrs.put("timestamp", in.getHeader("timestamp"));
+				attrs.put("body", in.getBody());
+				Document doc = mongo.createDoc(attrs);
+				mongo.store("messages", doc);
+	
 				Map<String, Object> sattrs = new HashMap<String, Object>();
 				sattrs.put("to", in.getHeader("from"));
 				sattrs.put("at", dt.toDate());
 				sattrs.put("msg_id", doc.get("_id"));
 				Document sched = mongo.createDoc(sattrs);
 				mongo.store("schedule", sched);
-	
 			}
-			
 		}
-		
-		
 		
 	}
 
