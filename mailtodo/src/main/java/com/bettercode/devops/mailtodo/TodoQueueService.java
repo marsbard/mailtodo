@@ -21,16 +21,12 @@ import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.impl.DefaultMessage;
 
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateExceptionHandler;
 
 public class TodoQueueService implements Processor {
 	
 	private ActiveMQQueue queue;
 	private Session session;
 	private MessageConsumer consumer;
-	private Configuration cfg;
 
 	public TodoQueueService() throws JMSException, IOException{
 		
@@ -43,16 +39,6 @@ public class TodoQueueService implements Processor {
 		
 		session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		consumer = session.createConsumer(queue);
-		
-		
-		cfg = new Configuration(Configuration.VERSION_2_3_22);
-		cfg.setDirectoryForTemplateLoading(new File(App.TEMPLATE_STORAGE_DIR));
-		
-		cfg.setDefaultEncoding("UTF-8");
-//		cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-		cfg.setTemplateExceptionHandler(TemplateExceptionHandler.HTML_DEBUG_HANDLER);
-
-
 	}
 
 	public void process(Exchange exchange) throws Exception {
@@ -72,13 +58,13 @@ public class TodoQueueService implements Processor {
 		
 		root.put("messages", msgs);
 		
-		Template listView = cfg.getTemplate("listView.ftl");
-		Writer w = new StringWriter();
-		listView.process(root, w);
-		
-		Message out = new DefaultMessage();
-		out.setBody(w.toString());
-		exchange.setOut(out);
+//		Template listView = cfg.getTemplate("listView.ftl");
+//		Writer w = new StringWriter();
+//		listView.process(root, w);
+//		
+//		Message out = new DefaultMessage();
+//		out.setBody(w.toString());
+//		exchange.setOut(out);
 	}
 
 }
