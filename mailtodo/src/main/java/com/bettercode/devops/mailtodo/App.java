@@ -14,6 +14,7 @@ import org.apache.camel.support.ServiceSupport;
 
 import com.bettercode.devops.mailtodo.mongo.MongoConnector;
 import com.bettercode.devops.mailtodo.processors.DatedMailProcessorService;
+import com.bettercode.devops.mailtodo.processors.UnknownMailProcessorService;
 import com.bettercode.devops.mailtodo.smtp.MailOutQueue;
 import com.bettercode.devops.mailtodo.smtp.MailTodoSmtpException;
 import com.bettercode.devops.mailtodo.smtp.OutMail;
@@ -35,6 +36,8 @@ public class App
 	private static final Boolean IS_CAMEL_DEBUGGING = false;
 	public static final String APP_EMAIL_FROM = "postits@wherever.wat";
 	public static final String MAIL_TEMPLATES_PATH = "src/main/resources/templates";
+	private static final String OUTBOUND_MAIL_SERVER = "localhost";
+	private static final int OUTBOUND_MAIL_PORT = 25;
 
 	public static void main( String[] args ) throws Exception
     {
@@ -75,6 +78,8 @@ public class App
 
 		
 		outMail = new OutMail();
+//		outMail.setOutboundMailServer(OUTBOUND_MAIL_SERVER);
+//		outMail.setOutboundMailPort(OUTBOUND_MAIL_PORT);
 		outMail.setMailOutQueue(mailOutQueue);
 		outMail.setTemplateProcessor(templateProcessor);
 		
@@ -82,6 +87,8 @@ public class App
 		datedMailProcessorService.setCamelContext(context);
 		datedMailProcessorService.setMongo(mongo);
 		datedMailProcessorService.setOutMail(outMail);
+		
+		final UnknownMailProcessorService unknownMailProcessorService = new UnknownMailProcessorService();
 		
 		try {
 			context.addRoutes(new RouteBuilder() {
@@ -95,7 +102,7 @@ public class App
 					.when(header("to").regex("^[0-9]{1,2}(a|p)m@.*$"))
 						.process(datedMailProcessorService)
 					.otherwise()
-						.process(new TodoQueueService());
+						.process(unknownMailProcessorService);
 				}
 			});
 		} catch (Exception e) {

@@ -11,6 +11,8 @@ public class OutMail {
 
 	private TemplateProcessor templateProcessor;
 	private MailOutQueue mailOutQueue;
+	private String mailServer;
+	private int mailServerPort;
 
 	public void enqueueErrorMail(String msg, String to) throws TemplateProcessorException {
 		
@@ -40,5 +42,6 @@ public class OutMail {
 	public void setTemplateProcessor(TemplateProcessor templateProcessor) {
 		this.templateProcessor = templateProcessor;
 	}
+
 
 }
