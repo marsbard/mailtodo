@@ -89,6 +89,7 @@ public class App
 		datedMailProcessorService.setOutMail(outMail);
 		
 		final UnknownMailProcessorService unknownMailProcessorService = new UnknownMailProcessorService();
+		unknownMailProcessorService.setOutMail(outMail);
 		
 		try {
 			context.addRoutes(new RouteBuilder() {

@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
@@ -13,22 +12,13 @@ import org.bson.Document;
 import org.joda.time.DateTime;
 
 import com.bettercode.devops.mailtodo.i18n.I18n;
-import com.bettercode.devops.mailtodo.mongo.MongoConnector;
-import com.bettercode.devops.mailtodo.smtp.OutMail;
 
-public class DatedMailProcessorService implements Processor {
+public class DatedMailProcessorService  extends BasicProcessorService implements Processor{
 	
 	private static final int DEFAULT_MIN = 0;
 	private static final int DEFAULT_HOUR = 6;
-	private CamelContext context;
-	private MongoConnector mongo;
-	private OutMail outMail;
 	private I18n i18n;
 	
-	public void setCamelContext(CamelContext context){
-		this.context = context;
-	}
-
 	public void process(Exchange exchange) throws Exception {
 		
 		Message in = exchange.getIn();
@@ -60,11 +50,6 @@ public class DatedMailProcessorService implements Processor {
 				return;
 			}	
 			
-
-			
-
-	
-
 			String msg = validDate(dt);
 			if(msg != ""){
 				outMail.enqueueErrorMail(msg,(String) in.getHeader("from"));
@@ -100,14 +85,6 @@ public class DatedMailProcessorService implements Processor {
 		}
 		
 		return "";
-	}
-
-	public void setMongo(MongoConnector mongo) {
-		this.mongo = mongo;
-	}
-
-	public void setOutMail(OutMail outMail) {
-		this.outMail = outMail;
 	}
 
 }
