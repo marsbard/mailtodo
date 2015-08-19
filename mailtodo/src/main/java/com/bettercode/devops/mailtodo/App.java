@@ -89,6 +89,9 @@ public class App
 		datedMailProcessorService.setOutMail(outMail);
 		
 		final UnknownMailProcessorService unknownMailProcessorService = new UnknownMailProcessorService();
+		unknownMailProcessorService.setCamelContext(context);
+		unknownMailProcessorService.setMongo(mongo);
+		unknownMailProcessorService.setOutMail(outMail);
 		
 		try {
 			context.addRoutes(new RouteBuilder() {
