@@ -26,6 +26,7 @@ public class MailOutQueue {
 	}
 	
 	public void addToQueue(MySmtpMessage message){
+		System.out.println("Return mail:\n" + message);
 		if(running){
 			// TODO write the message to the JMS queue
 		} else {

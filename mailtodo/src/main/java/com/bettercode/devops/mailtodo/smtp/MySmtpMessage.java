@@ -58,5 +58,14 @@ public class MySmtpMessage {
 		this.from = from;
 	}
 	
-
+	public String toString(){
+		String out = "To: " + to + "\n";
+		out += "From: "  + from + "\n";
+		for(Header h: headers){
+			out += h.getName() + ": " + h.getValue() + "\n";
+		}
+		out += "\n" + body;
+		
+		return out;
+	}
 }

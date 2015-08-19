@@ -1,7 +1,6 @@
 package com.bettercode.devops.mailtodo.smtp;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.impl.DefaultCamelContext;
 import org.subethamail.smtp.server.SMTPServer;
 
 import com.bettercode.devops.mailtodo.App;

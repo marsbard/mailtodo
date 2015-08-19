@@ -32,7 +32,7 @@ public class App
 	protected static final String WEB_ENDPOINT = "jetty:http://0.0.0.0:8191/todoq";
 	public static final String TEMPLATE_STORAGE_DIR = "src/main/resources/templates";
 	public static final String RESPONSE_MARKER = "-RESULT";
-	private static final Boolean IS_CAMEL_DEBUGGING = true;
+	private static final Boolean IS_CAMEL_DEBUGGING = false;
 	public static final String APP_EMAIL_FROM = "postits@wherever.wat";
 	public static final String MAIL_TEMPLATES_PATH = "src/main/resources/templates";
 
