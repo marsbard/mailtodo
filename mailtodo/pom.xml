@@ -2,12 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>es.riplife.devops</groupId>
-	<artifactId>mailtodo</artifactId>
+	<groupId>com.bettercode</groupId>
+	<artifactId>postits</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>mailtodo</name>
+	<name>postits</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -24,10 +24,17 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
-			<groupId>org.jinq</groupId>
-			<artifactId>jinq-jpa</artifactId>
-			<version>1.8.4</version>
+			<groupId>org.subethamail</groupId>
+			<artifactId>subethasmtp</artifactId>
+			<version>3.1.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derby</artifactId>
+			<version>10.10.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
@@ -80,5 +87,15 @@
 			<version>2.3.23</version>
 		</dependency>
 
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>3.0.3</version>
+		</dependency>
 	</dependencies>
 </project>
