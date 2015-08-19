@@ -102,6 +102,8 @@ public class App
 						.process(datedMailProcessorService)
 					.when(header("to").regex("^[0-9]{1,2}(a|p)m@.*$"))
 						.process(datedMailProcessorService)
+					.when(header("to").regex("^tomorrow@.*$"))
+						.process(datedMailProcessorService)
 					.otherwise()
 						.process(unknownMailProcessorService);
 				}

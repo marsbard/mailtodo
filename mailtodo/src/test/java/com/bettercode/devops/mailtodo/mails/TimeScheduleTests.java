@@ -128,4 +128,20 @@ public class TimeScheduleTests {
 		assertThat(body).contains(search);
 	}
 
+	@Test
+	public void testTomorrow() throws InterruptedException {
+		sendSmtpMail("tomorrow@postits.blah");
+
+		MySmtpMessage msg = moQ.pollHead();
+
+		assertThat(msg).isNotNull();
+		assertThat(msg.getBody()).isNotNull();
+		
+		String search = App.RESPONSE_MARKER + ": Success";
+
+		String body = msg.getBody();
+		
+		assertThat(body).contains(search);
+	}
+	
 }
