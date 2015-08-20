@@ -15,8 +15,8 @@ import com.bettercode.devops.mailtodo.templates.TemplateProcessorException;
 
 public class DatedMailProcessorService  extends BasicProcessorService implements Processor {
 	
-	private static final int DEFAULT_MIN = 0;
-	private static final int DEFAULT_HOUR = 6;
+	public static final int DEFAULT_MIN = 0;
+	public static final int DEFAULT_HOUR = 6;
 	private I18n i18n;
 	
 	public void process(Exchange exchange) throws Exception {
@@ -34,7 +34,7 @@ public class DatedMailProcessorService  extends BasicProcessorService implements
 					now.getDayOfMonth(),
 					DEFAULT_HOUR,
 					DEFAULT_MIN
-					);
+					).plusDays(1);
 			enqueueScheduledMessage(in, to, tomorrow);
 		}
 		
@@ -91,7 +91,7 @@ public class DatedMailProcessorService  extends BasicProcessorService implements
 		Document sched = mongo.createDoc(sattrs);
 		mongo.store("schedule", sched);
 		
-		outMail.enqueueSuccessMail("Success: Some kind of success", (String) in.getHeader("from"));
+		outMail.enqueueSuccessMail("Success: Some kind of success", (String) in.getHeader("from"), doc.get("_id").toString());
 	}
 
 	/*

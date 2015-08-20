@@ -24,10 +24,11 @@ public class OutMail {
 		mailOutQueue.addToQueue(message );
 	}
 
-	public void enqueueSuccessMail(String msg, String to) throws TemplateProcessorException {
+	public void enqueueSuccessMail(String msg, String to, String msgDocId) throws TemplateProcessorException {
 		
 		Map<String, String> model = new HashMap<String, String>();
 		model.put("successMessage", App.RESPONSE_MARKER + ": " + msg);
+		model.put("msgDocId", msgDocId);
 		
 		String body = templateProcessor.process("success-mail", model);
 		

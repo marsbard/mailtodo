@@ -1,11 +1,14 @@
 package com.bettercode.devops.mailtodo.mongo;
 
+import static com.mongodb.client.model.Filters.eq;
+
 import java.util.Map;
 
 import org.bson.Document;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
@@ -47,6 +50,41 @@ public class MongoConnector {
 			break;
 		}
 		return document.get("_id");
+	}
+
+	public Document get(String collection, String id) {
+		switch(collection){
+		case "messages":
+			return messages.find(eq("_id", id)).first();
+		case "schedule":
+			return schedule.find(eq("_id", id)).first();			
+		}
+		return null;
+	}
+
+	public FindIterable<Document> getWhere(String collection, String field, String value) throws MongoConnectorException {
+		MongoCollection<Document> which = null;
+		switch(collection){
+		case "messages":
+			which = messages;
+			break;
+		case "schedule":
+			which = schedule;
+			break;
+		}
+		
+		if(which==null){
+			throw new MongoConnectorException("Collection " + collection + " was not found");
+		}
+		
+		BasicDBObject searchQuery = new BasicDBObject();
+		searchQuery.put(field, value);
+		
+		FindIterable<Document>  res = which.find(searchQuery);
+		
+		return res;
+		
+//		return messages.find(eq(field, value));
 	}
 	
 }

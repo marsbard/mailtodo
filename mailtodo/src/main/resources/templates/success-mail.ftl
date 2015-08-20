@@ -9,3 +9,6 @@ ${successMessage}
 Yours,
 
 The Postits Server
+
+-- 
+msg-doc-id: ${msgDocId}
